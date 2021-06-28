@@ -1,0 +1,49 @@
+import java.io.*;
+import java.util.*;
+
+public class Main{
+
+public static void main(String[] args) throws Exception {
+    // write your code here
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    int[] arr = new int[n];
+    for(int i = 0 ; i < n ; i++) arr[i] = scn.nextInt();
+    
+    HashMap< Integer , Boolean > map = new HashMap<>();
+    for(int i : arr){
+        map.put(i , true);
+    }
+    
+    for(int i : arr){
+        if(map.containsKey(i - 1)){
+            map.put(i , false);
+        }
+    }
+    
+    
+    int len = 0;
+    int startpt = 0;
+    
+    for(int i : arr){
+        
+        if(map.get(i) == true){
+            
+            int templen = 1;
+            while(map.containsKey(i + templen)){
+                templen++;
+            }
+            if(templen > len){
+                len = templen;
+                startpt = i;
+            }
+        }
+    }
+    
+    for(int i = 0 ; i < len;i++){
+        System.out.println(startpt + i);
+    }
+    
+ }
+
+}
