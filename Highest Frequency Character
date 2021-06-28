@@ -1,0 +1,31 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        // write your code here
+        Scanner scn = new Scanner(System.in);
+        String str = scn.nextLine();
+        
+        HashMap<Character , Integer > map = new HashMap<>();
+        for(int i = 0 ; i < str.length();i++){
+            char ch = str.charAt(i);
+            map.put(ch , map.getOrDefault(ch , 0) + 1);
+        }
+        
+        int ml = 0;
+        char mc = ' ';
+        
+        for(char ch : map.keySet()){
+            int tl = map.get(ch);
+            
+            if(tl > ml){
+                ml = tl;
+                mc = ch;
+            }
+        }
+        System.out.println(mc);
+    }
+
+}
