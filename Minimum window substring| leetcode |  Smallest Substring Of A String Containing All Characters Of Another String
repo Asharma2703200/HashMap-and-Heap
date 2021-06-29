@@ -1,0 +1,84 @@
+import java.util.*;
+
+public class Main {
+
+  public static String solution(String s1, String s2) {
+    // write your code here
+
+    HashMap<Character, Integer > map1 = new HashMap<>();
+
+    HashMap<Character, Integer > map2 = new HashMap<>();
+    for (int i = 0 ; i < s2.length() ; i++) {
+      char ch = s2.charAt(i);
+      map2.put(ch, map2.getOrDefault(ch, 0) + 1);
+    }
+
+    String ans = "";
+
+    int i = -1;
+    int j = -1;
+
+    int matchcount = 0;
+    int desiredMatchCount = s2.length();
+
+    while (true) {
+      boolean l1 = false;
+      boolean l2 = false;
+
+      while (i < s1.length() - 1 && matchcount < desiredMatchCount) {
+          
+          l1 = true;
+        i++;
+
+        char ch = s1.charAt(i);
+
+        map1.put(ch, map1.getOrDefault(ch, 0) + 1);
+
+        if (map1.getOrDefault(ch, 0) <= map2.getOrDefault(ch, 0) ) {
+          matchcount++;
+        }
+
+      }
+
+      while ( j < i && matchcount == desiredMatchCount ) {
+          
+          l2 = true;
+
+        String path = s1.substring(j + 1, i + 1);
+        if (ans.length() == 0 || path.length() < ans.length()) {
+          ans = path;
+        }
+
+        j++;
+
+        char ch = s1.charAt(j);
+
+        if (map1.get(ch) == 1) {
+          map1.remove(ch);
+        } else {
+          map1.put(ch, map1.get(ch) - 1);
+        }
+
+        if (map1.getOrDefault(ch, 0) < map2.getOrDefault(ch, 0) ) {
+          matchcount--;
+        }
+      }
+
+        if (l1 == false && l2 == false) {
+          break;
+        }
+
+    }
+
+
+    return ans;
+  }
+
+  public static void main(String[] args) {
+    Scanner scn = new Scanner(System.in);
+    String s1 = scn.next();
+    String s2 = scn.next();
+    System.out.println(solution(s1, s2));
+  }
+
+}
