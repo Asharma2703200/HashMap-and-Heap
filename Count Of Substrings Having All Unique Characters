@@ -1,0 +1,57 @@
+import java.util.*;
+
+public class Main {
+
+	public static int solution(String s) {
+		// write your code here
+		int ans = 0;
+		
+		HashMap<Character , Integer> map = new HashMap<>();
+		
+		int i = -1;
+		int j = -1;
+		
+		while(true){
+		    boolean l1 = false;
+		    boolean l2 = false;
+		    
+		    while(i < s.length() - 1){
+		        l1 = true;
+		        i++;
+		        char ch = s.charAt(i);
+		        map.put(ch , map.getOrDefault(ch , 0) + 1);
+		        if(map.get(ch) == 2){
+		            break;
+		        }else{
+		            ans += i - j;
+		        }
+		    }
+		    
+		    while(j < i){
+		        l2 = true;
+		        j++;
+		        char ch = s.charAt(j);
+		        map.put(ch , map.get(ch) -1);
+		        
+		        if(map.get(ch) == 1){
+		            ans += i - j;
+		            break;
+		        }
+		    }
+		    
+		    if(l1 == false && l2 == false){
+		        break;
+		    }
+		    
+		}
+		
+		return ans;
+	}
+	
+	public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		String str = scn.next();
+		System.out.println(solution(str));
+	}
+
+}
