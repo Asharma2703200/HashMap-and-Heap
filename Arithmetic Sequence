@@ -1,0 +1,35 @@
+import java.util.*;
+import java.io.*;
+public class Main{
+    public static boolean solution(int[] arr , int n){
+        if(n == 1)return true;
+        
+        HashSet<Integer> set = new HashSet<>();
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        for(int i : arr){
+            max = Math.max(i , max);
+            min = Math.min(i , min);
+            set.add(i);
+        }
+        
+        int d = (max - min)/ (n - 1);
+        
+        for(int i = 0 ; i < n;i++){
+            int c = min + (i * d);
+            
+            if(!set.contains(c))
+            return false;
+        }
+       return true;
+    }
+    public static void main(String[] args) throws Exception {
+      Scanner scn = new Scanner(System.in);
+      int n = scn.nextInt();
+      int[] arr = new int[n];
+      for(int i = 0 ; i < n;i++){
+          arr[i] = scn.nextInt();
+      }
+      System.out.println(solution(arr , n));
+   }
+}
