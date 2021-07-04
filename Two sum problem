@@ -1,0 +1,18 @@
+ public static ArrayList<ArrayList<Integer>> twoSum(int[] nums, int target, int si , int ei) {
+		// write your code here
+		ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+		while(si < ei){
+		    if(nums[si] + nums[ei] == target){
+		        res.add(new ArrayList(Arrays.asList(nums[si] , nums[ei])));
+		        si++;
+		        ei--;
+		        while(si < ei && nums[si] == nums[si - 1])si++;
+		        while(si < ei && nums[ei] == nums[ei + 1])ei--;
+		    }else if(nums[si] + nums[ei] < target){
+		        i++;
+		    }else{
+		        j++;
+		    }
+		}
+		return res;
+	}
