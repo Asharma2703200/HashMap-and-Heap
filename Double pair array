@@ -1,0 +1,44 @@
+import java.util.*;
+
+public class Main {
+
+    public static boolean solution(int[] arr) {
+        // write your code here
+        if(arr.length == 0) return true;
+        if(arr.length % 2 == 1) return false;
+        
+        HashMap<Integer , Integer> map = new HashMap<>();
+        
+        for(int val : arr) map.put(val , map.getOrDefault(val , 0) + 1);
+        
+        Integer[] a = new Integer[arr.length];
+        for(int i = 0 ; i < arr.length ; i++){
+            a[i] = arr[i];
+        }
+        
+        Arrays.sort(a , (x , y)->{return Math.abs(x) - Math.abs(y);});
+        
+        for(Integer val : a){
+            if(map.get(val) == 0) continue;
+            
+            if(map.getOrDefault(2 * val , 0) == 0) return false;
+            
+            map.put(val , map.get(val) - 1);
+            map.put(2 * val , map.get(2 * val) - 1);
+            
+        }
+        
+        return true;
+    }
+    
+    public static void main(String[] args) {
+		Scanner scn = new Scanner(System.in);
+		int n = scn.nextInt();
+		int[] arr = new int[n];
+		for(int i = 0 ; i < n; i++){
+			arr[i] = scn.nextInt();
+		}
+		System.out.println(solution(arr));
+	}
+
+}
