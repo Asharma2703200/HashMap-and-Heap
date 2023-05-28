@@ -1,0 +1,40 @@
+count no of distinct pairs with a<=b and difference of b and a is equal to k b-a = k in a given array [1,1,2,2,3,3] where k = 1 and indices are different  in java 
+Two pairs of array is considered as distinct when (a,b) and atleast one element of a and be not in c,d
+
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class DistinctPairs {
+    public static int countDistinctPairs(int[] arr, int k) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        int count = 0;
+
+        // Count the frequency of each element in the array
+        for (int num : arr) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+
+        // Count the number of distinct pairs
+        for (int num : arr) {
+            int complement = num + k;
+            if (frequencyMap.containsKey(complement)) {
+                count++;
+                // To ensure uniqueness, decrement the frequency of num and complement
+                frequencyMap.put(num, frequencyMap.get(num) - 1);
+                frequencyMap.put(complement, frequencyMap.get(complement) - 1);
+            }
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 1, 2, 2, 3, 3};
+        int k = 1;
+
+        int distinctPairs = countDistinctPairs(arr, k);
+        System.out.println("Number of distinct pairs: " + distinctPairs);
+    }
+}
